@@ -1,0 +1,16 @@
+import smtplib
+
+li = ["F.elyaswandi@gmail.com", "amin.nazari076@gmail.com","m.rasekhi@gmail.com","Soroush@sabetice.ir",
+      "saeid.ektefaie@gmail.com","Adam11s@outlook.com"]
+details={"F.elyaswandi@gmail.com":"Farideh","amin.nazari.ni@gmail.com":"Amin","m.rasekhi@gmail.com":"Mohsen", "Soroush@sabetice.ir":"Soroush",
+         "saeid.ektefaie@gmail.com":"Saeid", "Adam11s@outlook.com":"Ahmad"}
+sender= "myemail@gmail.com"
+password = "12345"  
+for i in range(len(li)): 
+    s = smtplib.SMTP('smtp.gmail.com', 587) 
+    s.starttls() 
+    s.login(sender, password)
+    b = list(details.values())
+    message = "hi {}".format(b[i])
+    s.sendmail(sender, li[i], message) 
+    s.quit() 
