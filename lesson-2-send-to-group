@@ -1,9 +1,7 @@
 import smtplib
 
-li = ["F.elyaswandi@gmail.com", "amin.nazari076@gmail.com","m.rasekhi@gmail.com","Soroush@sabetice.ir",
-      "saeid.ektefaie@gmail.com","Adam11s@outlook.com"]
-details={"F.elyaswandi@gmail.com":"Farideh","amin.nazari.ni@gmail.com":"Amin","m.rasekhi@gmail.com":"Mohsen", "Soroush@sabetice.ir":"Soroush",
-         "saeid.ektefaie@gmail.com":"Saeid", "Adam11s@outlook.com":"Ahmad"}
+li = ["a@gmail.com", "b@gmail.com","c@gmail.com"]
+details={"a@gmail.com":"nameA","b@gmail.com":"nameB","c@gmail.com":"nameC"}
 sender= "myemail@gmail.com"
 password = "12345"  
 for i in range(len(li)): 
