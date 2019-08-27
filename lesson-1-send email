@@ -1,0 +1,11 @@
+import smtplib
+
+sender = "myemail@gmail.com"  
+password = "12345"
+resiver = "myfriend@gmail.com" 
+s = smtplib.SMTP('smtp.gmail.com', 587) 
+s.starttls() 
+s.login(sender, password)
+message = "email conetext...."
+s.sendmail(sender,resiver, message) 
+s.quit() 
