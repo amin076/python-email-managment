@@ -1,0 +1,15 @@
+import smtplib
+
+li = ["a@gmail.com", "b@gmail.com","c@gmail.com"]
+details={"a@gmail.com":"nameA","b@gmail.com":"nameB","c@gmail.com":"nameC"}
+sender= "myemail@gmail.com"
+password = "12345"  
+subject = "This is subject"
+for i in range(len(li)): 
+    s = smtplib.SMTP('smtp.gmail.com', 587) 
+    s.starttls() 
+    s.login(sender, password)
+    b = list(details.values())
+    message = "Subject: {}\n\nDear {}\n This is an email with subject which composed by smtplib in python.".format(subject,b[i])
+    s.sendmail(sender, li[i], message) 
+    s.quit() 
