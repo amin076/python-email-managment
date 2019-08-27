@@ -1,0 +1,26 @@
+# This code developed by Saeid
+
+import re # This is library for regular expressions
+
+emails = ["john@gmail.com", "mag.dwerty@yahoo.com", "info@msn.com", "Soroush@digikala.com",
+      "saeid@tehranuniversity.ac.ir"]
+#------------------------------------------------------------------------------------------
+#this function return a list containing extracted items as "dictionary" object from email address list
+# input: list of strings
+# return : list of dictionaries
+def extract_emails(emaillist):
+    custlist=[]
+    customer={}
+    for email in emaillist:
+        name=re.split("@",email)[0]
+        part2=re.split("@",email)[1]
+        company=re.split("\.",part2)[0]
+        customer["email"]=email
+        customer["name"]=name
+        customer["company"]=company
+        #print(customer)
+        custlist.append(customer.copy())
+    return(custlist)
+#------------------------------------------------------------------------------------------
+
+print(extract_emails(emails))
