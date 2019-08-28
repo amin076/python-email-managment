@@ -6,13 +6,14 @@ details={"a@gmail.com":"nameA","b@gmail.com":"nameB","c@gmail.com":"nameC"}
 #sender= "myemail@gmail.com"
 sender = input('please enter the sender email:')
 #password = "12345"
-password = input('please enter the password:')
 subject = "This is subject"
-if 'gmail' in sender.lower(): #gmail SMTP
+password = input('please enter the password:')
+server = sender.split('@')[1]
+if 'gmail' in server.lower(): #gmail SMTP
     s = smtplib.SMTP('smtp.gmail.com', 587)
-elif 'outlook' in sender.lower(): #Outlook SMTP
+elif 'outlook' in server.lower(): #Outlook SMTP
     s = smtplib.SMTP('smtp-mail.outlook.com', 587)
-elif 'yahoo' in sender.lower(): #Yahoo SMTP
+elif 'yahoo' in server.lower(): #Yahoo SMTP
     s = smtplib.SMTP('smtp.mail.yahoo.com', 587) 
 s.starttls() 
 s.login(sender, password) 
