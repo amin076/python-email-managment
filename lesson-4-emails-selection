@@ -8,13 +8,16 @@ sender = input('please enter the sender email:')
 #password = "12345"
 subject = "This is subject"
 password = input('please enter the password:')
-server = sender.split('@')[1]
-if 'gmail' in server.lower(): #gmail SMTP
+domain = sender.split('@')[1]
+if 'gmail' in domain.lower(): #gmail SMTP
     s = smtplib.SMTP('smtp.gmail.com', 587)
-elif 'outlook' in server.lower(): #Outlook SMTP
+elif 'outlook' in domain.lower(): #Outlook SMTP
     s = smtplib.SMTP('smtp-mail.outlook.com', 587)
-elif 'yahoo' in server.lower(): #Yahoo SMTP
-    s = smtplib.SMTP('smtp.mail.yahoo.com', 587) 
+elif 'yahoo' in domain.lower(): #Yahoo SMTP
+    s = smtplib.SMTP('smtp.mail.yahoo.com', 587)
+else:
+    print('Sorry I dont have your email SMTP setting.\nBYE!')
+    quit()
 s.starttls() 
 s.login(sender, password) 
 for i in range(len(li)):
