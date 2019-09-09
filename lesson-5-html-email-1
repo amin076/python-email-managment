@@ -62,7 +62,7 @@ how to make html email with python?\
 </div>\
 </body>\
 </html>'
-messagePlain = 'Visit nitratine.net for some great tutorials and projects!'
+messagePlain =""
 msg = MIMEMultipart('alternative')
 msg['From'] = email
 msg['Subject'] = subject
