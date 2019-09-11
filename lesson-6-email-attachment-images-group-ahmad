@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+
+def sendmail(sendername, senderemail, password, receivers, htmlfile, img, attach):
+    """
+    sending emails needs
+    receivers as dictionary
+    all other parameters as string
+     """
+    import smtplib
+
+    #Creating the email
+    
+
+    domain = senderemail.split('@')[1]
+    if 'gmail' in domain.lower(): #Gmail SMTP
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+    elif 'outlook' in domain.lower(): #Outlook SMTP
+        smtpObj = smtplib.SMTP('smtp-mail.outlook.com', 587)
+    elif 'yahoo' in domain.lower(): #Yahoo SMTP
+        smtpObj = smtplib.SMTP('smtp.mail.yahoo.com', 587)
+    else:
+        print('Sorry I dont have your email SMTP setting.\nBYE!')
+        quit()
+
+    smtpObj.starttls()
+    try:
+        smtpObj.login(senderemail, password)
+    except smtplib.SMTPAuthenticationError:
+        print('Authentication error!\nWrong Email or Password.')
+        quit()
+ 
+    for user, email in receivers.items():
+        msg = makeHTMLemail(sendername, senderemail, user, email, htmlfile, img, attach)
+        smtpObj.send_message(msg)
+        print('email sent to {}'.format(user))
+        del msg
+    smtpObj.quit()
+
+def readfile(filename):
+    message = ''
+    rfile = open(filename, 'rt')
+    for line in rfile:
+        message += line
+    return(message)
+   
+def makeHTMLemail(sendername, senderemail, user, email, htmlfile, img, attach):
+    from email.mime.multipart import MIMEMultipart
+    from email import encoders
+    from email.mime.text import MIMEText
+    from email.mime.base import MIMEBase
+    from email.mime.image import MIMEImage
+    message = readfile(htmlfile)
+    msg = MIMEMultipart()
+    msg['From'] = senderemail
+    msg['Subject'] = 'Hello {} from {}'.format(user, sendername)
+    msg['To'] = email
+    message = message.replace('__user__', user)
+    msg.attach(MIMEText(message, 'HTML'))
+    
+    #attachement
+    with open(attach, "rb") as attachment:
+        part2 = MIMEBase("application", "octet-stream")
+        part2.set_payload(attachment.read())
+    encoders.encode_base64(part2)
+    part2.add_header("Content-Disposition", f"attachment; filename= {attach}",)
+    msg.attach(part2)
+
+    # images inside html-email.
+    fp = open(img, 'rb')
+    msgImage = MIMEImage(fp.read())
+    fp.close()
+    msgImage.add_header("Content-Disposition", f"attachment; filename= {img}",)
+    msgImage.add_header('Content-ID', '<myimage>')
+    msg.attach(msgImage)
+    
+    return(msg)
+    
+def main():
+    receivers = dict(Adam='x@x.xom', Rose='y@y.xom')
+    sendername= 'Ali'
+    senderemail= 'ali@ali.com'
+    #password = input('Your Email Password please:')
+    password = 'password'
+    message= 'messagewithpic.html'
+    img = 'image.jpg'
+    attach = 'textfile.txt'
+    #sending email to all users
+    sendmail(sendername, senderemail, password, receivers, message, img, attach)
+      
+if __name__ == '__main__': main()
